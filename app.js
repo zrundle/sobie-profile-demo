@@ -8,7 +8,12 @@
     //npm run dev to run entire app off of RENDER    
     //node app.js to run code
 
-//how to save code and post to github repo    
+//how to save code and post to github repo
+    //git status    
+    //git add . (. = all)
+    //git commit -m 'ENTER COMMMIT MESSAGE'
+    //git push
+
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
 require('dotenv').config()
@@ -45,7 +50,7 @@ const client = new MongoClient(uri, {
     }
   }
   run().catch(console.dir);
-  
+//stolen code from mongoDB 
 
 
 app.get('/', function (req, res) {
