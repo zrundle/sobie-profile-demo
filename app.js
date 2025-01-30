@@ -3,6 +3,7 @@
     //cd repos/
     //git clone https://github.com/zrundle/sobie-profile-demo.git
     //code .
+    //OR NPM install
     //npm i ejs
     //npm install mongodb
     //npm run dev to run entire app off of RENDER    
