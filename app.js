@@ -24,6 +24,7 @@ const express = require('express')
 const app = express()
 const port = process.env.PORT || 3000;
 const bodyParser = require('body-parser');
+const { ObjectId } = require('mongodb')
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -38,7 +39,6 @@ const client = new MongoClient(uri, {
     }
 });
 
-// console.log(shajs('sha256').update('cat').digest('hex'));
 
 async function run() {
     try {
@@ -52,7 +52,7 @@ async function run() {
         await client.close();
     }
 }
-// run().catch(console.dir);
+
 
 async function getData() {
 
@@ -74,6 +74,39 @@ app.get('/read', async function (req, res) {
 
 })
 
+//DATA TYPES MATTER
+    app.get('/insert', async (req,res)=>{
+
+        console.log('in /insert');
+        let reqName = req.query.myNameGet;
+        
+        await client.connect();
+        await client
+        .db("sobie-app-database")
+        .collection("sobie-name-collection")
+        .insertOne({ name: reqName });  
+        
+        res.redirect('/'); 
+
+    });
+
+    app.post('/delete/:id', async (req,res)=>{
+
+        console.log("in delete, req.parms.id: ", req.params._id)
+      
+        await client.connect();
+
+        await client
+        .db("sobie-app-database")
+        .collection("sobie-name-collection");
+        
+        let result = await collection.findOneAndDelete( 
+        {"_id": new ObjectId(req.params.id)}).then(result => {
+        
+        console.log(result); 
+        res.redirect('/read');})    
+      
+    })
 
 app.get('/', function (req, res) {
     res.sendFile('index.html');
