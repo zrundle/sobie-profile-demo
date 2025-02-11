@@ -25,6 +25,7 @@ const app = express()
 const port = process.env.PORT || 3000;
 const bodyParser = require('body-parser');
 const { ObjectId } = require('mongodb')
+const URI = process.env.MONGO_URI;
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -39,32 +40,27 @@ const client = new MongoClient(uri, {
     }
 });
 
+const mongoCollection = client.db("sobie-app-database").collection("sobie-name-collection");
 
-async function run() {
-    try {
-        // Connect the client to the server	(optional starting in v4.7)
-        await client.connect();
-        // Send a ping to confirm a successful connection
-        await client.db("admin").command({ ping: 1 });
-        console.log("Pinged your deployment. You successfully connected to MongoDB!");
-    } finally {
-        // Ensures that the client will close when you finish/error
-        await client.close();
-    }
-}
+function initProfileData() {
+
+    mongoCollection.insertOne({ 
+      title: "this is blog title",
+      post: "this is the post"
+    });
+  
+  }
+
+  app.get('/', async function (req, res) {
+  
+    let results = await mongoCollection.find({}).toArray(); 
+    
+    res.render('profile', 
+      { profileData : results} ); 
+  
+  })
 
 
-async function getData() {
-
-    await client.connect();
-    let collection = await client.db("sobie-app-database").collection("sobie-name-collection");
-
-    let results = await collection.find({}).toArray();
-
-    console.log(results);
-    return results;
-
-}
 
 app.get('/read', async function (req, res) {
     let getDataResults = await getData();
@@ -75,42 +71,30 @@ app.get('/read', async function (req, res) {
 })
 
 //DATA TYPES MATTER
-    app.get('/insert', async (req,res)=>{
+app.post('/insert', async (req,res)=> {
 
-        console.log('in /insert');
-        let reqName = req.query.myNameGet;
-        
-        await client.connect();
-        await client
-        .db("sobie-app-database")
-        .collection("sobie-name-collection")
-        .insertOne({ name: reqName });  
-        
-        res.redirect('/'); 
-
+    let results = await mongoCollection.insertOne({ 
+      title: req.body.title,
+      post: req.body.post
     });
+  
+    res.redirect('/');
+  
+  });
+    
+  app.post('/delete', async function (req, res) {
+  
+    let result = await mongoCollection.findOneAndDelete( 
+    {
+      "_id": new ObjectId(req.body.deleteId)
+    }
+  ).then(result => {
+    
+    res.redirect('/');
+  })
 
-    app.post('/delete/:id', async (req,res)=>{
+}); 
 
-        console.log("in delete, req.parms.id: ", req.params._id)
-      
-        await client.connect();
-
-        await client
-        .db("sobie-app-database")
-        .collection("sobie-name-collection");
-        
-        let result = await collection.findOneAndDelete( 
-        {"_id": new ObjectId(req.params.id)}).then(result => {
-        
-        console.log(result); 
-        res.redirect('/read');})    
-      
-    })
-
-app.get('/', function (req, res) {
-    res.sendFile('index.html');
-})
 
 app.post('/saveName', (req, res) => {
     console.log('hit POST endpoint?');
@@ -119,39 +103,23 @@ app.post('/saveName', (req, res) => {
     res.redirect('/ejs');
 })
 
+app.post('/update', async (req,res)=>{
+    let result = await mongoCollection.findOneAndUpdate( 
+    {_id: ObjectId.createFromHexString(req.body.updateId)}, { 
+      $set: 
+        {
+          title : req.body.updateTitle, 
+          post : req.body.updatePost 
+        }
+       }
+    ).then(result => {
+    console.log(result); 
+    res.redirect('/');
+  })
+  }); 
 
 //req: Request from server
 //res: Response
-
-app.get('/saveNameGet', (req, res) => {
-    console.log('hit GET endpoint?');
-
-    console.log(req.query);
-
-    let reqName = req.query.myNameGet;
-    res.render('words',
-        { pageTitle: reqName }
-    );
-    // res.redirect('/ejs');
-
-})
-
-// You need to type "/ejs" after localhost:3000 to find the ejs render webpage
-app.get('/ejs', function (req, res) {
-    res.render('words',
-        { pageTitle: 'My Cool EJS Page' }
-    )
-})
-
-// You need to type "/nodemon" after localhost:3000 to find the nodemon webpage
-app.get('/nodemon', function (req, res) {
-    res.send('NODEMON WORKS')
-})
-
-
-app.get('/hellorender', function (req, res) {
-    res.send('Hello Express from the real world<br><a href="/">back to home</a>')
-})
 
 app.listen(
     port,
