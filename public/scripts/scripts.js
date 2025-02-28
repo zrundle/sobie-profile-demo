@@ -1,6 +1,8 @@
-// A $( document ).ready() block.
-$( document ).ready(function() {
-    console.log( "ready!" );
-  
-  //more code here...
-});
+// Loads the user to the bottom of the page 
+
+window.onload = function () {
+  if (window.location.href.includes("insert")) {
+    document.getElementById("newPost").scrollIntoView();
+  }
+};
+

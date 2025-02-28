@@ -1,65 +1,102 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Sobie Profile Demo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css'>
   <link rel="stylesheet" href="/styles/styles.css">
 
 </head>
+
 <body>
 
-<main>
+  <main>
 
-    <form method="POST" action="insert/">
-        <input name="title">
-        <input name="post">
-        <button class="btn btn-primary" role="submit">new POST</button>
-      </form>
+    <nav class="navbar navbar-expand-lg">
+      <div class="container">
+        <a class="navbar-brand">Welcome</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="https://validator.w3.org/nu/">Nu Checker</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://github.com/zrundle/sobie-profile-demo">Source
+                Code</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://github.com/zrundle/sobie-profile-demo/blob/main/2025-zach-rundle-resume.pdf"
+             target="blank">My Resume</a></li>                
+          </ul>
+        </div>
+      </div>
+    </nav>
 
-      
-    <% profileData.forEach(result=> { %>
+    <header class="bg-dark text-white text-center py-5 headshot-section">
+      <div class="container">
+        <img src="https://media.licdn.com/dms/image/v2/D4D35AQHxEoN6HJUmTw/profile-framedphoto-shrink_200_200/profile-framedphoto-shrink_200_200/0/1721941770940?e=1741327200&v=beta&t=ZZczNKLcMLPjnML6-QsFcFmaF-EzowCHGvY9jskg1p8" 
+          alt="Your Headshot" class="headshot mb-4">
+        <h1>Zach Rundle</h1>
+        <p class="lead" style="color: #f5f5dc;">UNA Student</p>
+      </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="py-5">
+      <div class="container">
+        <h2 style="text-align:center;">About Me</h2>
+        <p>
+          Hello! I'm a 4th year student at UNA (University of North Alabama) majoring in Information Technology/Cybersecurity. My dream job 
+          would be to work for NASA and help build the next generation of satellites. Though I would love to work on another James Webb telescope.  
+        </p>
+      </div>
+    </section>
+
+    <!-- Trailblazers -->
+    <section id="trailblazers" class="py-5">
+      <div class="container">
+        <h2 style="text-align: center;">Leave a Sign</h2>
+        <p>If you come across this page please leave your name so I know that others care about 
+          this page.
+        </p>
+
         <div class="col-md-8">
-        
-  
-      <form method="POST" action="update/">
-        <input name="updateTitle" value="<%= result.title %>">
-        <input name="updatePost" value="<%= result.post %>"> 
-        <input type="hidden" name="updateId" value="<%=result._id %>">
-        <button class="btn btn-primary" role="submit"><i class="bi bi-pencil"></i></button>
-      </form>
-      
-  
-  
-      <form method="POST" action="delete/">
-        <input type="hidden" name="deleteId" value="<%=result._id %>">
-        <button class="btn btn-primary" role="submit"><i class="bi bi-trash3"></i></button>
-      </form>
-  
-  
-    </div>
+          <form method="POST" action="insert/">
+            <input name="post" id="newPost" autofocus>
+            <br>
+            <button class="btn btn-primary" role="submit">Add Name</button>
+          </form>
+          <br>
+        </div>
+
+        <% profileData.forEach(result=> { %>
+          
+          <div class="col-md-8">
+
+            <form method="POST" action="update/">
+              <input name="updatePost" value="<%= result.post %>">
+              <input type="hidden" name="updateId" value="<%=result._id %>">
+              <button class="btn btn-primary" role="submit">Update Post</button>
+            </form>
+
+
+            <form method="POST" action="delete/">
+              <input type="hidden" name="deleteId" value="<%=result._id %>">
+              <button class="btn btn-primary" role="submit"><i class="bi bi-trash3"></i></button>
+            </form>
+          </div>
       <% }); %>
 
 </main>
 
 
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.3/jquery-ui.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js'></script>
+  <script src="/scripts/scripts.js"></script>
 
-    
-<footer class="footer bg-body-tertiary text-center text-lg-start fixed-bottom">
-    <!-- Copyright -->
-    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
-      © 2024
-      <a class="text-body" href="https://mdbootstrap.com/">bc</a> |
-      <a href="https://gist.github.com/assets/22795694/d414efab-a80c-4b31-aeac-9636a0681f41" target="_blank">see my wireframe</a>
-      <!-- Copyright -->
-    </div>
-  </footer>
-  
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js'></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.3/jquery-ui.min.js'></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js'></script>
-    <script  src="/scripts/scripts.js"></script>
-  
-  </body>
-  </html>
+</body>
+
+</html>

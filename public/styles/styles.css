@@ -2,22 +2,138 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
+
 body {
-    background-image: url('https://img.freepik.com/free-vector/refridgerator-white-background_1308-102266.jpg?t=st=1740716863~exp=1740720463~hmac=23e639186c9194004d5fed9f9383b297377ae8cb0428c30700055139ae92b686&w=360'); /* Replace with your actual image path */
-    background-repeat: no-repeat; /* Prevent tiling */
-    background-position: center center; /* Center the image */
-    background-size: contain; /* Keep the full image visible without cropping */
-    background-attachment: fixed; /* Keep the image fixed when scrolling */
-    background-color: burlywood;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #4820DA;
+  color: #f5f5dc;
 }
 
-li {
-  font-family: "Ubuntu Mono", monospace;
-  font-weight: 400;
-  font-style: normal;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-bottom: 20px;
+  color: #f5f5dc;
 }
 
-/* use # to prefix css selector for dom/html element id attribute */
-#songList {
-  background-color: #CE93D8;
+p {
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: black;
+  text-align: center;
+}
+
+a {
+  color: #f5f5dc;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #d1c8a5;
+  text-decoration: underline;
+}
+
+
+@media (max-width: 768px) {
+  .navbar-nav {
+    text-align: center;
+  }
+
+  .navbar-brand {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.navbar {
+  margin-bottom: 30px;
+  background-color: silver;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.navbar-brand, .nav-link {
+  font-weight: bold;
+  font-size: 25px;
+  color: black;
+}
+
+header {
+  padding: 100px 0;
+  /* background: #2c3e50; */
+  /* color: #f5f5dc; */
+  position: relative;
+}
+
+
+header h1 {
+  font-size: 50px;
+  margin-bottom: 10px;
+}
+
+header p {
+  font-size: 20px;
+}
+
+.headshot {
+  width: 300px;
+  height: 300px;
+  border-radius: 10px;
+  object-fit: contain;
+}
+
+section {
+  padding: 60px 0;
+  background-color: rgb(204, 158, 40);
+  border-radius: 10px;
+  margin: 20px;
+}
+
+.bg-light {
+  background-color: #34495e !important;
+}
+
+.card {
+  background-color: #e6dec7;
+  color: #2c3e50;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+form label {
+  font-weight: bold;
+  color: #f5f5dc;
+}
+
+form .form-control {
+  border-radius: 0;
+  background-color: #f5f5dc;
+  color: #2c3e50;
+}
+
+.btn-primary {
+  background-color: #d1c8a5;
+  border: none;
+  color: #2c3e50;
+}
+
+.btn-primary:hover {
+  background-color: #b8a67d;
+}
+
+.col-md-8 {
+  margin: 0 auto; 
+  display: flex;
+  flex-direction: column; 
+  align-items: center; 
+  justify-content: center; 
+  text-align: center; 
 }
