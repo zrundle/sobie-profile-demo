@@ -1,22 +1,3 @@
-//how to clone repo with git bash:
-//mkdir repos/
-//cd repos/
-//git clone https://github.com/zrundle/sobie-profile-demo.git
-//code .
-//OR NPM install
-//npm i ejs
-//npm install mongodb
-//npm run dev to run entire app off of RENDER    
-//node app.js to run code
-//MAKE .ENV FILE 
-
-//how to save code and post to github repo
-//git status    
-//git add . (. = all)
-//git commit -m 'ENTER COMMMIT MESSAGE'
-//git push
-
-
 const { MongoClient, ServerApiVersion } = require('mongodb');
 require('dotenv').config()
 const uri = process.env.MONGO_URI;
@@ -117,9 +98,6 @@ app.post('/update', async (req,res)=>{
     res.redirect('/');
   })
   }); 
-
-//req: Request from server
-//res: Response
 
 app.listen(
     port,
